@@ -38,7 +38,8 @@ def scrape_url():
         paragraph_text = "No paragraph to be scraped"
 
     # call the open_ai endpoint with the extracted text as a parameter
-    return jsonify({'heading': heading, 'paragraph_text': paragraph_text})
+    # return jsonify({'heading': heading, 'paragraph_text': paragraph_text})
+    return jsonify(paragraph_text)
 
     
 
@@ -46,18 +47,18 @@ def scrape_url():
 
 
 
-@app.route('/openai', methods=['GET'])
+@app.route('/openai', methods=['POST'])
 def openai_summary():
-    text = request.args.get('text');
-    printText(text)
+    text = request.json.get('text')
     if text is None:
         return jsonify({'error': 'Please provide a text parameter'})
+
     response = requests.post('https://api.openai.com/v1/completions',
                              headers={'Content-Type': 'application/json',
                                       'Authorization': 'Bearer ' + openai_api_key},
                              json={
                                  'model': 'text-davinci-003',
-                                 'prompt': f'Please summarize the following article. Your summary should be approximately 3-4 sentences in length and cover the main points of the article. Use clear, concise language and avoid repeating information. Your summary will be used for a news briefing and should be suitable for a general audience. \n The text I have is:  \n\n{text}',
+                                 'prompt': 'Please summarize the following article. Your summary should be approximately 3-4 sentences in length and cover the main points of the article. Use clear, concise language and avoid repeating information. Your summary will be used for a news briefing and should be suitable for a general audience. \n The text I have is:  \n' + text,
                                  'max_tokens': 7,
                                  'temperature': 0.5,
                                  'top_p': 1,
@@ -68,6 +69,7 @@ def openai_summary():
                              })
     print(response.json())
     return jsonify(response.json())
+
 
 def printText(paragraphs):
     # texts = []
