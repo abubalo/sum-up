@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from bs4 import BeautifulSoup
 from flask_cors import CORS
 import os
+import openai
 
 
 app = Flask(__name__)
@@ -49,36 +50,21 @@ def scrape_url():
 
 @app.route('/openai', methods=['POST'])
 def openai_summary():
-    text = request.json.get('text')
+    text = str(request.json.get('text'))
     if text is None:
         return jsonify({'error': 'Please provide a text parameter'})
 
-    response = requests.post('https://api.openai.com/v1/completions',
-                             headers={'Content-Type': 'application/json',
-                                      'Authorization': 'Bearer ' + openai_api_key},
-                             json={
-                                 'model': 'text-davinci-003',
-                                 'prompt': 'Please summarize the following article. Your summary should be approximately 3-4 sentences in length and cover the main points of the article. Use clear, concise language and avoid repeating information. Your summary will be used for a news briefing and should be suitable for a general audience. \n The text I have is:  \n' + text,
-                                 'max_tokens': 7,
-                                 'temperature': 0.5,
-                                 'top_p': 1,
-                                 'n': 1,
-                                 'stream': False,
-                                 'logprobs': None,
-                                 'stop': '\n',
-                             })
-    print(response.json())
-    return jsonify(response.json())
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Summarize key point from the following, Your summary should be approximately 3 - 7 sentences in length and cover the main points of the article. Use clear, concise language and avoid repeating information. Separeate each sentence with new line syntax. Here is the text: "+ text,
+        max_tokens=60,
+        temperature=0.5
+    )
+    print(response)
+    return jsonify(response)
 
 
-def printText(paragraphs):
-    # texts = []
-    # for paragraph in paragraphs:
-    #     text = paragraph.text.strip()
-    #     if text:
-    #         texts.append(text)
-    #         print(text)
-    print(paragraphs)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
