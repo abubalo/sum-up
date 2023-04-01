@@ -1,12 +1,14 @@
 import requests
 from flask import Flask, request, jsonify
 from bs4 import BeautifulSoup
+from flask_cors import CORS
 import os
 
+
 app = Flask(__name__)
+CORS(app)
 
 openai_api_key = os.getenv('OPENAI_API_KEY')
-# this endpoint recieve url as a post request and use beautifull to scrape the url content and pass it OpenAI fetch endpiont.
 
 
 @app.route('/scrape', methods=['POST'])
@@ -27,16 +29,29 @@ def scrape_url():
 
     # get the heading and paragraph text
     heading = soup.find('h1').text if soup.find(
-        'h1') else "No content to be scraped"
-    paragraph = soup.find('p').text if soup.find('p') else ""
+        'h1') else "No heading to be scraped"
+
+    paragraphs = soup.find_all('p')
+    if paragraphs:
+        paragraph_text = "\n\n ".join([p.text for p in paragraphs])
+    else:
+        paragraph_text = "No paragraph to be scraped"
 
     # call the open_ai endpoint with the extracted text as a parameter
-    return open_ai(paragraph)
+    return jsonify({'heading': heading, 'paragraph_text': paragraph_text})
+
+    
+
+
+
 
 
 @app.route('/openai', methods=['GET'])
-def open_ai(text):
-    text = request.json['text']
+def openai_summary():
+    text = request.args.get('text');
+    printText(text)
+    if text is None:
+        return jsonify({'error': 'Please provide a text parameter'})
     response = requests.post('https://api.openai.com/v1/completions',
                              headers={'Content-Type': 'application/json',
                                       'Authorization': 'Bearer ' + openai_api_key},
@@ -51,9 +66,17 @@ def open_ai(text):
                                  'logprobs': None,
                                  'stop': '\n',
                              })
+    print(response.json())
     return jsonify(response.json())
 
-
+def printText(paragraphs):
+    # texts = []
+    # for paragraph in paragraphs:
+    #     text = paragraph.text.strip()
+    #     if text:
+    #         texts.append(text)
+    #         print(text)
+    print(paragraphs)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
