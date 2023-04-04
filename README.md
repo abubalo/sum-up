@@ -1,6 +1,6 @@
 # SumUp
-
-SumUp is a browser extension that allows users to quickly extract the text of articles from web pages and generate a summary using the powerful Davinci-003 language model. Built with JavaScript and Node.js, SumUp provides a fast, efficient, and user-friendly way to digest long-form content and save time.
+![image](./clients/assets/sumup.png)
+SumUp is a Chrome browser extension that allows users to quickly extract the text of articles from web pages and generate abubaloa summary using the powerful OpenAI Davinci-003 language model. Built with JavaScript and Python. SumUp provides a fast, efficient, and user-friendly way to digest long-form content and save time.
 
 ## Installation
 
@@ -14,12 +14,9 @@ To install SumUp, follow these steps:
 
 ## Usage
 
-To use SumUp, simply navigate to the web page of an article you want to summarize and click the SumUp icon in your browser toolbar. SumUp will extract the text from the article, generate a summary using the Davinci-003 language model, and display the summary in a popup window.
+To use SumUp, simply navigate to the web page of an article you want to summarize and click the SumUp icon in your browser toolbar. SumUp will extract the text from the article, generate a summary using the OpenAI Davinci-003 language model, and display the summary in a popup window.
 
-## Contributing
-
-If you'd like to contribute to SumUp, please submit a pull request with your proposed changes. We welcome contributions of all kinds, including bug fixes, new features, and documentation improvements.
 
 ## License
 
-SumUp is licensed under the MIT license. See LICENSE.txt for more information.
+SumUp is licensed under the MIT license. See [LICENSE](/LICENSE.md) for more information.
