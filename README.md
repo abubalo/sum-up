@@ -22,4 +22,4 @@ If you'd like to contribute to SumUp, please submit a pull request with your pro
 
 ## License
 
-SumUp is licensed under the MIT license. See LICENSE.txt for more information.
+SumUp is licensed under the MIT license. See LICENSE for more information.
