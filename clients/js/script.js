@@ -36,7 +36,7 @@ async function summarizeText(text) {
   if(!data){
     document.querySelector(".text").textContent = "There is not data to display"
   }else{
-    document.querySelector(".text").textContent = data
+    document.querySelector(".text").textContent = data.choices[0].text
   }
 }
 
