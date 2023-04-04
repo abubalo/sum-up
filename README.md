@@ -19,4 +19,7 @@ To use SumUp, simply navigate to the web page of an article you want to summariz
 
 ## License
 
+
 SumUp is licensed under the MIT license. See [LICENSE](/LICENSE.md) for more information.
+
+
