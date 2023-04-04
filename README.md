@@ -1,5 +1,5 @@
 # SumUp
-![image](./clients/assets/sumup.png)
+![image](./clients/assets/sumup.jpg)
 SumUp is a Chrome browser extension that allows users to quickly extract the text of articles from web pages and generate abubaloa summary using the powerful OpenAI Davinci-003 language model. Built with JavaScript and Python. SumUp provides a fast, efficient, and user-friendly way to digest long-form content and save time.
 
 ## Installation
