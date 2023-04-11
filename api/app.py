@@ -2,7 +2,7 @@ import io
 import os
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify, request, Response, make_response
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 import openai
 from reportlab.pdfgen import canvas
